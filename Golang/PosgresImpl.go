@@ -31,8 +31,7 @@ func (p PostgreSQL) Connect() (*sql.DB, error) {
 }
 
 func (p PostgreSQL) CreateUsers(user User) (string, error) {
-	var query string
-	query = `INSERT INTO public.User (username, email) VALUES ($1, $2) RETURNING id`
+	query := `INSERT INTO public.User (username, email) VALUES ($1, $2) RETURNING id`
 	id := 0
 	err = db.QueryRow(query, user.Username, user.Email).Scan(&id)
 	if err != nil {
@@ -42,8 +41,7 @@ func (p PostgreSQL) CreateUsers(user User) (string, error) {
 }
 
 func (p PostgreSQL) GetAll() ([]User, error) {
-	var query string
-	query = "Select * from public.user"
+	query := "Select * from public.user"
 	result, err := db.Query(query)
 	if err != nil {
 		return nil, err
@@ -67,8 +65,7 @@ func (p PostgreSQL) GetAll() ([]User, error) {
 }
 
 func (p PostgreSQL) DeleteUsers() (string, error) {
-	var query string
-	query = "DELETE FROM public.user"
+	query := "DELETE FROM public.user"
 	result, err := db.Exec(query)
 	if err != nil {
 		panic(err.Error())
@@ -83,8 +80,7 @@ func (p PostgreSQL) DeleteUsers() (string, error) {
 }
 
 func (p PostgreSQL) DeleteUser(id string) (string, error) {
-	var query string
-	query = "DELETE FROM public.User where id = $1"
+	query := "DELETE FROM public.User where id = $1"
 	result, err := db.Exec(query, id)
 	if err != nil {
 		panic(err.Error())

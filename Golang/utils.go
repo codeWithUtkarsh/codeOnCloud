@@ -17,7 +17,7 @@ func validate() (bool, error) {
 
 	datasource_name := getenv("DATA_SOURCE", "")
 	if datasource_name == "" {
-		panic(errors.New("The datasource not defined. Availaible options are mysql, postgres"))
+		panic(errors.New("datasource not defined, availaible options are mysql, postgres"))
 	}
 	return true, nil
 }

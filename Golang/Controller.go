@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
-	. "github.com/go-swagno/swagno"
+	swg "github.com/go-swagno/swagno"
 	"github.com/go-swagno/swagno-http/swagger"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -106,15 +106,15 @@ func handleRequests() {
 }
 
 func SetSwagger(myRouter *mux.Router) {
-	endpoints := []Endpoint{
-		EndPoint(GET, "/users", "Users", Params(), nil, []User{}, err, "Get all users", nil),
-		EndPoint(POST, "/users", "Users", Params(), User{}, nil, err, "", nil),
-		EndPoint(DELETE, "/users/{id}", "Users", Params(IntParam("id", true, "")), nil, nil, err, "", nil),
-		EndPoint(DELETE, "/users", "Users", Params(), nil, nil, err, "", nil),
+	endpoints := []swg.Endpoint{
+		swg.EndPoint(swg.GET, "/users", "Users", swg.Params(), nil, []User{}, err, "Get all users", nil),
+		swg.EndPoint(swg.POST, "/users", "Users", swg.Params(), User{}, nil, err, "", nil),
+		swg.EndPoint(swg.DELETE, "/users/{id}", "Users", swg.Params(swg.IntParam("id", true, "")), nil, nil, err, "", nil),
+		swg.EndPoint(swg.DELETE, "/users", "Users", swg.Params(), nil, nil, err, "", nil),
 	}
 
-	sw := CreateNewSwagger("Swagger API", "1.0")
-	AddEndpoints(endpoints)
+	sw := swg.CreateNewSwagger("Swagger API", "1.0")
+	swg.AddEndpoints(endpoints)
 
 	myRouter.PathPrefix("/swagger").Handler(swagger.SwaggerHandler(sw.GenerateDocs()))
 	// if you want to export your swagger definition to a file

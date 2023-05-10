@@ -43,6 +43,6 @@ func (df DatabaseFactory) CreateDatabase() (Database, error) {
 			dbname:   getenv("DB_NAME", "testdb"),
 		}, nil
 	default:
-		return nil, fmt.Errorf("Unsupported database type")
+		return nil, fmt.Errorf("unsupported database type")
 	}
 }
