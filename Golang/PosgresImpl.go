@@ -7,9 +7,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
-var err error
-
 type PostgreSQL struct {
 	host     string
 	port     int

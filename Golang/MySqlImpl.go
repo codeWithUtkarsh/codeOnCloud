@@ -32,8 +32,7 @@ func (m MySQL) Connect() (*sql.DB, error) {
 }
 
 func (p MySQL) CreateUsers(user User) (string, error) {
-	var query string
-	query = "INSERT INTO `User` (`username`, `email`) VALUES (?, ?)"
+	query := "INSERT INTO `User` (`username`, `email`) VALUES (?, ?)"
 	insertResult, err := db.ExecContext(context.Background(), query, user.Username, user.Email)
 	if err != nil {
 		panic(err.Error())
@@ -47,8 +46,7 @@ func (p MySQL) CreateUsers(user User) (string, error) {
 }
 
 func (p MySQL) GetAll() ([]User, error) {
-	var query string
-	query = "Select * from User"
+	query := "Select * from User"
 	result, err := db.Query(query)
 	if err != nil {
 		return nil, err
@@ -72,8 +70,7 @@ func (p MySQL) GetAll() ([]User, error) {
 }
 
 func (p MySQL) DeleteUsers() (string, error) {
-	var query string
-	query = "DELETE FROM User"
+	query := "DELETE FROM User"
 	result, err := db.Exec(query)
 	if err != nil {
 		panic(err.Error())
@@ -88,8 +85,7 @@ func (p MySQL) DeleteUsers() (string, error) {
 }
 
 func (p MySQL) DeleteUser(id string) (string, error) {
-	var query string
-	query = "DELETE FROM User where id = ?"
+	query := "DELETE FROM User where id = ?"
 	result, err := db.Exec(query, id)
 	if err != nil {
 		panic(err.Error())

@@ -2,10 +2,12 @@ package main
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"strconv"
 )
+
+var db *sql.DB
+var err error
 
 type Database interface {
 	Connect() (*sql.DB, error)
@@ -19,29 +21,25 @@ type DatabaseFactory struct{}
 
 func (df DatabaseFactory) CreateDatabase() (Database, error) {
 
-	datasource := getenv("datasource", "")
-	if datasource == "" {
-		return nil,
-			errors.New("The datasource not defined. Availaible options are mysql, postgresql")
-	}
+	datasource := getenv("DATA_SOURCE", "")
 
 	switch datasource {
 	case "mysql":
-		port, _ := strconv.Atoi(getenv("PORT", "3306"))
+		port, _ := strconv.Atoi(getenv("DB_PORT", "3306"))
 		return MySQL{
-			host:     getenv("HOST", "localhost"),
+			host:     getenv("DB_HOST", "localhost"),
 			port:     port,
-			username: getenv("USERNAME", "root"),
-			password: getenv("PASSWORD", "password"),
+			username: getenv("DB_USERNAME", "root"),
+			password: getenv("DB_PASSWORD", "password"),
 			dbname:   getenv("DB_NAME", "testdb"),
 		}, nil
 	case "postgres":
-		port, _ := strconv.Atoi(getenv("PORT", "3306"))
+		port, _ := strconv.Atoi(getenv("DB_PORT", "3306"))
 		return PostgreSQL{
-			host:     getenv("HOST", "localhost"),
+			host:     getenv("DB_HOST", "localhost"),
 			port:     port,
-			username: getenv("USERNAME", "root"),
-			password: getenv("PASSWORD", "password"),
+			username: getenv("DB_USERNAME", "root"),
+			password: getenv("DB_PASSWORD", "password"),
 			dbname:   getenv("DB_NAME", "testdb"),
 		}, nil
 	default:

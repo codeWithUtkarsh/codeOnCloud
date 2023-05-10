@@ -13,5 +13,6 @@ require github.com/go-swagno/swagno-files v0.1.3 // indirect
 require (
 	github.com/go-swagno/swagno v0.5.0
 	github.com/go-swagno/swagno-http v0.0.0-20220905203049-935bab5403fa
+	github.com/joho/godotenv v1.5.1
 	golang.org/x/net v0.9.0 // indirect
 )
